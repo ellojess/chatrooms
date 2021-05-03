@@ -61,4 +61,20 @@ $(document).ready(()=>{
     }
   })
 
+  // // refresh its online users when another user leaves 
+  // socket.on('user has left', (onlineUsers) => {
+  //   $('.users-online').empty();
+  //   for(username in onlineUsers){
+  //     $('.users-online').append(`<p>${username}</p>`);
+  //   }
+  // })
+
+  //Refresh the online user list
+  socket.on('user has left', (onlineUsers) => {
+    $('.users-online').empty();
+    for(username in onlineUsers){
+      $('.users-online').append(`<p>${username}</p>`);
+    }
+  });
+
 })
