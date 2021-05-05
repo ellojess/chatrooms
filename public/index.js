@@ -1,4 +1,4 @@
-// index.js
+//index.js
 
 $(document).ready(()=>{
   const socket = io.connect();
@@ -6,8 +6,6 @@ $(document).ready(()=>{
   // keep track of the current user
   let currentUser;
 
-  const socket = io.connect();
-  let currentUser;
   // get the online users from the server
   socket.emit('get online users');
 
@@ -15,7 +13,7 @@ $(document).ready(()=>{
     e.preventDefault();
     if($('#username-input').val().length > 0){
       socket.emit('new user', $('#username-input').val());
-      // save the current user when created
+      // Save the current user when created
       currentUser = $('#username-input').val();
       $('.username-form').remove();
       $('.main-container').css('display', 'flex');
@@ -37,7 +35,7 @@ $(document).ready(()=>{
     }
   });
 
-  //socket listeners
+  // socket listeners
   socket.on('new user', (username) => {
     console.log(`${username} has joined the chat`);
     $('.users-online').append(`<div class="user-online">${username}</div>`);
@@ -53,7 +51,7 @@ $(document).ready(()=>{
     `);
   })
 
-  // show users on page 
+  // 
   socket.on('get online users', (onlineUsers) => {
     // usernames are keys in the object of onlineUsers
     for(username in onlineUsers){
@@ -61,15 +59,7 @@ $(document).ready(()=>{
     }
   })
 
-  // // refresh its online users when another user leaves 
-  // socket.on('user has left', (onlineUsers) => {
-  //   $('.users-online').empty();
-  //   for(username in onlineUsers){
-  //     $('.users-online').append(`<p>${username}</p>`);
-  //   }
-  // })
-
-  //Refresh the online user list
+  // refresh the online user list
   socket.on('user has left', (onlineUsers) => {
     $('.users-online').empty();
     for(username in onlineUsers){
