@@ -30,4 +30,9 @@ module.exports = (io, socket, onlineUsers) => {
     io.emit('user has left', onlineUsers);
   });
 
+  // when new channel button is pressed 
+  socket.on('new channel', (newChannel) => {
+    console.log(newChannel);
+  });
+
 }
