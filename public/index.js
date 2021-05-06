@@ -9,6 +9,9 @@ $(document).ready(()=>{
   // get the online users from the server
   socket.emit('get online users');
 
+  // get existing channels
+  socket.emit('update channels');
+
   // each user should be in the general channel by default
   socket.emit('user changed channel', "General");
 
@@ -117,5 +120,16 @@ $(document).ready(()=>{
       `);
     });
   });
+
+  // allow for created channels to display to users 
+  // who were not online when the channel was created 
+  socket.on('update channels', (channels) => {
+    for (channel in channels) {
+        if (channel == "General") {
+        } else {
+            $('.channels').append(`<div class="channel">${channel}</div>`);
+        }
+    }
+});
 
 })
