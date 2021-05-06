@@ -13,7 +13,10 @@ module.exports = (io, socket, onlineUsers, channels) => {
 
   socket.on('new message', (data) => {
     console.log(`🎤 ${data.sender}: ${data.message} 🎤`)
-    io.emit('new message', data);
+    // save the new message to the channel.
+    channels[data.channel].push({sender : data.sender, message : data.message});
+    // emit only to sockets that are in that channel room.
+    io.to(data.channel).emit('new message', data);
   })
 
   socket.on('get online users', () => {
